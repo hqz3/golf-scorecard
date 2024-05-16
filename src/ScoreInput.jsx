@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 
 const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
   const [score, setScore] = useState(hole);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
+  const [isTouched, setIsTouched] = useState(false);
 
   useEffect(() => {
-    if (score === 0) return;
+    if (isTouched === false && score === 0) return;
 
     let timer = setTimeout(() => {
       setIsEdit(false);
@@ -15,8 +16,10 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
     return () => clearTimeout(timer);
   }, [score]);
 
-  const handleChange = (e) => {
-    const newScore = parseInt(e.currentTarget.value);
+  const handleChange = (e, newScore) => {
+    e.stopPropagation();
+    if (newScore < 0) return;
+
     setScore(newScore);
     setPlayers((players) => {
       players[playerIdx].holes[holeIdx] = newScore;
@@ -33,19 +36,27 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
         setIsEdit(false);
       }}
     >
-      <input
-        min={0}
-        className={classNames("w-full", { hidden: !isEdit })}
-        type="number"
-        value={score}
-        onChange={handleChange}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            setIsEdit(false);
-          }
-        }}
-        onClick={(e) => e.stopPropagation()}
-      />
+      <div
+        className={classNames("flex w-full items-center justify-center", {
+          hidden: !isEdit,
+        })}
+      >
+        <div
+          className="cursor-pointer px-1 outline outline-1 hover:bg-blue-50"
+          onClick={(e) => handleChange(e, score - 1)}
+        >
+          -
+        </div>
+        <p className={classNames("w-full text-center", { hidden: !isEdit })}>
+          {score}
+        </p>
+        <div
+          className="cursor-pointer px-1 outline outline-1 hover:bg-blue-50"
+          onClick={(e) => handleChange(e, score + 1)}
+        >
+          +
+        </div>
+      </div>
 
       <p
         className={classNames(
