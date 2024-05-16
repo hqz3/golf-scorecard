@@ -40,7 +40,7 @@ const NameInput = ({ player, playerIdx, setPlayers, highScore }) => {
     <div
       className={classNames(
         "sticky left-0 z-10 flex w-28 min-w-28 gap-2 border bg-white p-4",
-        { "border-yellow-400 bg-yellow-50": player.score === highScore },
+        { "border-yellow-400": player.score === highScore },
       )}
       onClick={() => {
         if (name.length) {
