@@ -1,9 +1,18 @@
 import classNames from "classnames";
 import { useState } from "react";
 
-const ScoreInput = ({ hole }) => {
+const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
   const [score, setScore] = useState(hole);
   const [isEdit, setIsEdit] = useState(true);
+
+  const handleChange = (e) => {
+    const newScore = parseInt(e.currentTarget.value);
+    setScore(newScore);
+    setPlayers((players) => {
+      players[playerIdx].holes[holeIdx] = newScore;
+      return [...players];
+    });
+  };
 
   return (
     <div
@@ -17,7 +26,7 @@ const ScoreInput = ({ hole }) => {
         className={classNames("w-full", { hidden: !isEdit })}
         type="number"
         value={score}
-        onChange={(e) => setScore(e.currentTarget.value)}
+        onChange={handleChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             setIsEdit(false);

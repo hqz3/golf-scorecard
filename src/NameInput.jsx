@@ -58,7 +58,11 @@ const NameInput = ({ player }) => {
       >
         {abbreviated}
       </p>
-      <p>{player.score}</p>
+      <p>
+        {player.holes.reduce((a, b) => {
+          return a + b;
+        }, 0)}
+      </p>
     </div>
   );
 };

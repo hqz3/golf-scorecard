@@ -57,13 +57,21 @@ function App() {
           })}
         </div>
 
-        {players.map((player, idx) => {
+        {players.map((player, playerIdx) => {
           return (
-            <div className="relative flex w-fit" key={idx}>
-              <NameInput key={idx} player={player} />
+            <div className="relative flex w-fit" key={playerIdx}>
+              <NameInput player={player} />
               <div className="flex">
-                {player?.holes?.map((hole, idx) => {
-                  return <ScoreInput key={idx} hole={hole} />;
+                {player?.holes.map((hole, holeIdx) => {
+                  return (
+                    <ScoreInput
+                      key={holeIdx}
+                      playerIdx={playerIdx}
+                      hole={hole}
+                      holeIdx={holeIdx}
+                      setPlayers={setPlayers}
+                    />
+                  );
                 })}
               </div>
             </div>
