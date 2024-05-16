@@ -5,6 +5,19 @@ const NameInput = ({ player, highScore }) => {
   const [name, setName] = useState(player?.name || "");
   const [isEdit, setIsEdit] = useState(true);
 
+  // Debounced
+  useEffect(() => {
+    if (!name.length) {
+      return;
+    }
+
+    let timer = setTimeout(() => {
+      setIsEdit(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [name]);
+
   const abbreviated = useMemo(() => {
     if (name.length && !isEdit) {
       let string = "";

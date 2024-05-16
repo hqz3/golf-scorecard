@@ -1,9 +1,17 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
   const [score, setScore] = useState(hole);
   const [isEdit, setIsEdit] = useState(true);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setIsEdit(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [score]);
 
   const handleChange = (e) => {
     const newScore = parseInt(e.currentTarget.value);
