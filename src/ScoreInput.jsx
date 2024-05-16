@@ -10,6 +10,8 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
     setScore(newScore);
     setPlayers((players) => {
       players[playerIdx].holes[holeIdx] = newScore;
+      const total = players[playerIdx].holes.reduce((a, b) => a + b, 0);
+      players[playerIdx].score = total;
       return [...players];
     });
   };

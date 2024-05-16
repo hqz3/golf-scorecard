@@ -1,12 +1,13 @@
 import { useState } from "react";
+import classNames from "classnames";
 import NameInput from "./NameInput";
 import ScoreInput from "./ScoreInput";
-import classNames from "classnames";
 
 function App() {
   const [players, setPlayers] = useState([]);
 
   const handleAddPlayer = () => {
+    if (players.length == 10) return;
     if (!players.length) {
       setPlayers([...players, { name: "", score: 0, holes: [0] }]);
       return;
