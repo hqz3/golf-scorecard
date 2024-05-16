@@ -6,6 +6,8 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
+    if (score === 0) return;
+
     let timer = setTimeout(() => {
       setIsEdit(false);
     }, 2500);
