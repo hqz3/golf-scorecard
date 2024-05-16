@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const NameInput = ({ player }) => {
+const NameInput = ({ player, highScore }) => {
   const [name, setName] = useState(player?.name || "");
   const [isEdit, setIsEdit] = useState(true);
 
@@ -26,7 +26,10 @@ const NameInput = ({ player }) => {
 
   return (
     <div
-      className="sticky left-0 z-10 flex w-24 min-w-24 gap-2 border bg-white p-4"
+      className={classNames(
+        "sticky left-0 z-10 flex w-24 min-w-24 gap-2 border bg-white p-4",
+        { "border-yellow-400 bg-yellow-50": player.score === highScore },
+      )}
       onClick={() => {
         if (name.length) {
           setIsEdit(false);
@@ -48,9 +51,12 @@ const NameInput = ({ player }) => {
         onClick={(e) => e.stopPropagation()}
       />
       <p
-        className={classNames("w-full overflow-hidden text-ellipsis", {
-          hidden: isEdit,
-        })}
+        className={classNames(
+          "w-full cursor-pointer overflow-hidden text-ellipsis hover:bg-blue-100",
+          {
+            hidden: isEdit,
+          },
+        )}
         onClick={(e) => {
           e.stopPropagation();
           setIsEdit(true);

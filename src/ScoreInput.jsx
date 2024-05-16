@@ -38,9 +38,12 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
       />
 
       <p
-        className={classNames("w-full text-center", {
-          hidden: isEdit,
-        })}
+        className={classNames(
+          "w-full cursor-pointer text-center hover:bg-blue-100",
+          {
+            hidden: isEdit,
+          },
+        )}
         onClick={(e) => {
           e.stopPropagation();
           setIsEdit(true);

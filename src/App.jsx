@@ -27,8 +27,13 @@ function App() {
     setPlayers([...newPlayers]);
   };
 
+  const highScore = players.reduce(
+    (a, player) => (a > player.score ? a : player.score),
+    0,
+  );
+
   return (
-    <div className="flex min-h-lvh min-w-[100vw] max-w-[100vw] flex-col gap-4 border border-red-500  p-4">
+    <div className="flex min-h-lvh min-w-[100vw] max-w-[100vw] flex-col gap-4 p-4">
       <header className="text-center text-2xl font-bold">GOLF SCORECARD</header>
       <div className="flex gap-4">
         <button className="" onClick={handleAddPlayer}>
@@ -61,7 +66,7 @@ function App() {
         {players.map((player, playerIdx) => {
           return (
             <div className="relative flex w-fit" key={playerIdx}>
-              <NameInput player={player} />
+              <NameInput player={player} highScore={highScore} />
               <div className="flex">
                 {player?.holes.map((hole, holeIdx) => {
                   return (
