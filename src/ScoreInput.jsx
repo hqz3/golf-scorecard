@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
   const [score, setScore] = useState(hole);
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => {

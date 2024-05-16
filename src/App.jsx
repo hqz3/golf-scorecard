@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import NameInput from "./NameInput";
 import ScoreInput from "./ScoreInput";
 
 function App() {
   const [players, setPlayers] = useState([]);
+  const [isAddHole, setIsAddHole] = useState(true);
+
+  const ref = useRef();
+  useEffect(() => {
+    const width = ref.current.scrollWidth;
+    ref.current.scrollTo({
+      left: width,
+      behavior: "smooth",
+    });
+  }, [isAddHole]);
 
   const handleAddPlayer = () => {
     if (players.length == 10) return;
@@ -25,6 +35,7 @@ function App() {
       return player;
     });
     setPlayers([...newPlayers]);
+    setIsAddHole(!isAddHole);
   };
 
   const highScore = players.reduce(
@@ -44,7 +55,7 @@ function App() {
         </button>
       </div>
 
-      <div className="w-full overflow-auto">
+      <div ref={ref} className="w-full overflow-auto">
         <div className="relative flex w-fit">
           <div
             className={classNames(
