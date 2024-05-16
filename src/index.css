@@ -58,5 +58,5 @@ button:active {
 }
 
 input {
-  border: 1px solid lightgray;
+  outline: 1px solid lightgray;
 }

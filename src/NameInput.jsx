@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 
 const NameInput = ({ player }) => {
   const [name, setName] = useState(player?.name || "");
-  const [showInput, setShowInput] = useState(true);
+  const [isEdit, setIsEdit] = useState(true);
 
   const abbreviated = useMemo(() => {
-    if (name.length && !showInput) {
+    if (name.length && !isEdit) {
       let string = "";
       const splitted = name.split(" ");
 
@@ -20,22 +20,21 @@ const NameInput = ({ player }) => {
           string += trimmed[0];
         }
       }
-
       return string;
     }
-  }, [name, showInput]);
+  }, [name, isEdit]);
 
   return (
     <div
-      className="flex w-24 gap-2 border p-4"
-      onClick={(e) => {
+      className="sticky left-0 z-10 flex w-24 min-w-24 gap-2 border bg-white p-4"
+      onClick={() => {
         if (name.length) {
-          setShowInput(false);
+          setIsEdit(false);
         }
       }}
     >
       <input
-        className={classNames("w-full", { hidden: !showInput })}
+        className={classNames("w-full", { hidden: !isEdit })}
         type="text"
         value={name}
         onChange={(e) => {
@@ -43,18 +42,18 @@ const NameInput = ({ player }) => {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            setShowInput(false);
+            setIsEdit(false);
           }
         }}
         onClick={(e) => e.stopPropagation()}
       />
       <p
         className={classNames("w-full overflow-hidden text-ellipsis", {
-          hidden: showInput,
+          hidden: isEdit,
         })}
         onClick={(e) => {
           e.stopPropagation();
-          setShowInput(true);
+          setIsEdit(true);
         }}
       >
         {abbreviated}
