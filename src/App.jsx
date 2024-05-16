@@ -19,11 +19,17 @@ function App() {
   const handleAddPlayer = () => {
     if (players.length == 10) return;
     if (!players.length) {
-      setPlayers([...players, { name: "", score: 0, holes: [0] }]);
+      setPlayers([
+        ...players,
+        { id: Date.now(), name: "", score: 0, holes: [0] },
+      ]);
       return;
     }
     const holes = players?.[0].holes;
-    setPlayers([...players, { name: "", score: 0, holes: holes.map(() => 0) }]);
+    setPlayers([
+      ...players,
+      { id: Date.now(), name: "", score: 0, holes: holes.map(() => 0) },
+    ]);
   };
 
   const handleAddHole = () => {
@@ -59,7 +65,7 @@ function App() {
         <div className="relative flex w-fit">
           <div
             className={classNames(
-              "sticky left-0 z-10 w-24 min-w-24 bg-white text-center font-bold",
+              "sticky left-0 z-10 w-28 min-w-28 bg-white text-center font-bold",
               { hidden: !players.length },
             )}
           >
@@ -76,8 +82,13 @@ function App() {
 
         {players.map((player, playerIdx) => {
           return (
-            <div className="relative flex w-fit" key={playerIdx}>
-              <NameInput player={player} highScore={highScore} />
+            <div className="relative flex w-fit" key={player.id}>
+              <NameInput
+                player={player}
+                playerIdx={playerIdx}
+                setPlayers={setPlayers}
+                highScore={highScore}
+              />
               <div className="flex">
                 {player?.holes.map((hole, holeIdx) => {
                   return (

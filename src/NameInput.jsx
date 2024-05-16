@@ -1,11 +1,10 @@
 import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
 
-const NameInput = ({ player, highScore }) => {
+const NameInput = ({ player, playerIdx, setPlayers, highScore }) => {
   const [name, setName] = useState(player?.name || "");
   const [isEdit, setIsEdit] = useState(true);
 
-  // Debounced
   useEffect(() => {
     if (!name.length) {
       return;
@@ -40,7 +39,7 @@ const NameInput = ({ player, highScore }) => {
   return (
     <div
       className={classNames(
-        "sticky left-0 z-10 flex w-24 min-w-24 gap-2 border bg-white p-4",
+        "sticky left-0 z-10 flex w-28 min-w-28 gap-2 border bg-white p-4",
         { "border-yellow-400 bg-yellow-50": player.score === highScore },
       )}
       onClick={() => {
@@ -49,6 +48,22 @@ const NameInput = ({ player, highScore }) => {
         }
       }}
     >
+      <div
+        className={classNames(
+          "cursor-pointer px-1 text-red-300 outline outline-1 outline-red-300 hover:bg-red-50 active:scale-[.98]",
+          { hidden: !isEdit },
+        )}
+        onClick={(e) => {
+          e.stopPropagation();
+          setPlayers((players) => {
+            return players
+              .slice(0, playerIdx)
+              .concat(players.slice(playerIdx + 1));
+          });
+        }}
+      >
+        -
+      </div>
       <input
         className={classNames("w-full", { hidden: !isEdit })}
         type="text"

@@ -42,7 +42,7 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
         })}
       >
         <div
-          className="cursor-pointer px-1 outline outline-1 hover:bg-blue-50"
+          className="cursor-pointer px-1 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
           onClick={(e) => handleChange(e, score - 1)}
         >
           -
@@ -51,7 +51,7 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
           {score}
         </p>
         <div
-          className="cursor-pointer px-1 outline outline-1 hover:bg-blue-50"
+          className="cursor-pointer px-1 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
           onClick={(e) => handleChange(e, score + 1)}
         >
           +
