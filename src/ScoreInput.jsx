@@ -31,7 +31,7 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
 
   return (
     <div
-      className="w-24 min-w-24 border p-4"
+      className="flex w-24 min-w-24 items-center border p-2"
       onClick={() => {
         setIsEdit(false);
       }}
@@ -42,7 +42,7 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
         })}
       >
         <div
-          className="cursor-pointer px-1 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
+          className="cursor-pointer px-2 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
           onClick={(e) => handleChange(e, score - 1)}
         >
           -
@@ -51,7 +51,7 @@ const ScoreInput = ({ playerIdx, hole, holeIdx, setPlayers }) => {
           {score}
         </p>
         <div
-          className="cursor-pointer px-1 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
+          className="cursor-pointer px-2 outline outline-1 outline-gray-400 hover:bg-blue-50 active:scale-[.98]"
           onClick={(e) => handleChange(e, score + 1)}
         >
           +
