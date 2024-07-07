@@ -37,6 +37,15 @@ const NameInput = ({ player, playerIdx, setPlayers, highScore }) => {
     }
   }, [name, isEdit]);
 
+  useEffect(() => {
+    if (abbreviated) {
+      setPlayers((players) => {
+        players[playerIdx].name = abbreviated;
+        return [...players];
+      });
+    }
+  }, [abbreviated]);
+
   return (
     <div
       className={classNames(
